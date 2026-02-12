@@ -4,6 +4,15 @@ const dict = {
   // main.ts
   'The web interface is ready': 1,
   'The web interface is unreachable': 2,
+  'Database Migration': 3,
+  'Database migration complete': 4,
+  'Database migration in progress. This may take a long time. Do NOT restart.': 5,
+
+  // actions/resetPassword.ts
+  'Reset Password': 10,
+  'Reset your Uptime Kuma admin password': 11,
+  'Password Reset': 12,
+  'Your password has been reset. Use the new password below to log in.': 13,
 
   // interfaces.ts
   'Web UI': 100,

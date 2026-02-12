@@ -1,11 +1,18 @@
 import { sdk } from './sdk'
-import { uiPort } from './utils'
+import { uiPort, MIGRATION_MARKER } from './utils'
 import { i18n } from './i18n'
+import { existsSync } from 'fs'
+import { rm } from 'fs/promises'
+import { dbConfig } from './file-models/db-config.json'
+
+const entryPageUrl = `http://uptime-kuma.startos:${uiPort}/api/entry-page`
 
 export const main = sdk.setupMain(async ({ effects }) => {
   console.info('Starting Uptime Kuma')
 
-  return sdk.Daemons.of(effects).addDaemon('primary', {
+  await dbConfig.write(effects, { type: 'sqlite' })
+
+  const daemons = sdk.Daemons.of(effects).addDaemon('primary', {
     subcontainer: await sdk.SubContainer.of(
       effects,
       {
@@ -20,12 +27,11 @@ export const main = sdk.setupMain(async ({ effects }) => {
       'main',
     ),
     exec: {
-      command: sdk.useEntrypoint(), 
+      command: sdk.useEntrypoint(),
       cwd: '/app',
     },
     ready: {
-      display: i18n('Web Interface'), // If null, the health check will NOT be displayed to the user. If provided, this string will be the name of the health check and displayed to the user.
-      // The function below determines the health status of the daemon.
+      display: i18n('Web Interface'),
       fn: () =>
         sdk.healthCheck.checkWebUrl(
           effects,
@@ -35,6 +41,34 @@ export const main = sdk.setupMain(async ({ effects }) => {
             errorMessage: i18n('The web interface is unreachable'),
           },
         ),
+    },
+    requires: [],
+  })
+
+  if (!existsSync(MIGRATION_MARKER)) return daemons
+
+  return daemons.addHealthCheck('migration', {
+    ready: {
+      display: i18n('Database Migration'),
+      fn: async () => {
+        try {
+          const res = await fetch(entryPageUrl)
+          if (res.ok) {
+            rm(MIGRATION_MARKER, { force: true }).catch(console.error)
+            return {
+              result: 'success' as const,
+              message: i18n('Database migration complete'),
+            }
+          }
+        } catch {}
+
+        return {
+          result: 'loading' as const,
+          message: i18n(
+            'Database migration in progress. This may take a long time. Do NOT restart.',
+          ),
+        }
+      },
     },
     requires: [],
   })

@@ -1,2 +1,4 @@
 import { sdk } from '../sdk'
-export const actions = sdk.Actions.of()
+import { resetPassword } from './resetPassword'
+
+export const actions = sdk.Actions.of().addAction(resetPassword)
