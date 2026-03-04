@@ -1,10 +1,8 @@
-import { matches, FileHelper } from '@start9labs/start-sdk'
+import { FileHelper, z } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
 
-const { object, literal } = matches
-
-const shape = object({
-  type: literal('sqlite').onMismatch('sqlite'),
+const shape = z.object({
+  type: z.literal('sqlite').catch('sqlite'),
 })
 
 export const dbConfig = FileHelper.json(

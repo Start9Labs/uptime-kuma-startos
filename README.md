@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" alt="Uptime Kuma Logo" width="21%">
+  <img src="icon.svg" alt="Uptime Kuma Logo" width="21%">
 </p>
 
 # Uptime Kuma on StartOS
@@ -7,8 +7,8 @@
 > **Upstream docs:** <https://github.com/louislam/uptime-kuma/wiki>
 >
 > Everything not listed in this document should behave the same as upstream
-> Uptime Kuma v1.23.17. If a feature, setting, or behavior is not mentioned
-> here, the upstream documentation is accurate and fully applicable.
+> Uptime Kuma. If a feature, setting, or behavior is not mentioned here, the
+> upstream documentation is accurate and fully applicable.
 
 [Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool. It allows you to monitor the uptime of your websites, servers, and applications with real-time notifications and detailed reports.
 
@@ -36,7 +36,7 @@
 
 | Property | Value |
 |----------|-------|
-| Image | `louislam/uptime-kuma:1.23.17-alpine` (upstream unmodified) |
+| Image | `louislam/uptime-kuma` (upstream unmodified) |
 | Architectures | x86_64, aarch64 |
 | Entrypoint | Default upstream entrypoint |
 
@@ -93,7 +93,9 @@ Uptime Kuma on StartOS uses the default upstream configuration. All settings are
 
 ## Actions (StartOS UI)
 
-None. Uptime Kuma is managed entirely through its web UI.
+### Reset Password
+
+Resets your Uptime Kuma admin password to a randomly generated value. Use this if you've been locked out of the web UI.
 
 ---
 
@@ -156,20 +158,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for build instructions and development wo
 
 ```yaml
 package_id: uptime-kuma
-upstream_version: 1.23.17
-image: louislam/uptime-kuma:1.23.17-alpine
+image: louislam/uptime-kuma
 architectures: [x86_64, aarch64]
 volumes:
   main: /app/data
 ports:
   ui: 3001
 dependencies: none
-actions: none
+actions:
+  - reset-password
 health_checks:
   - webui: http_check 3001
 backup_volumes:
   - main
 startos_managed_config: none
-not_available:
-  - Environment variable configuration
 ```

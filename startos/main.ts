@@ -1,16 +1,11 @@
-import { sdk } from './sdk'
-import { uiPort, MIGRATION_MARKER } from './utils'
-import { i18n } from './i18n'
 import { existsSync } from 'fs'
 import { rm } from 'fs/promises'
-import { dbConfig } from './file-models/db-config.json'
-
-const entryPageUrl = `http://uptime-kuma.startos:${uiPort}/api/entry-page`
+import { i18n } from './i18n'
+import { sdk } from './sdk'
+import { MIGRATION_MARKER, uiPort } from './utils'
 
 export const main = sdk.setupMain(async ({ effects }) => {
   console.info('Starting Uptime Kuma')
-
-  await dbConfig.write(effects, { type: 'sqlite' })
 
   const daemons = sdk.Daemons.of(effects).addDaemon('primary', {
     subcontainer: await sdk.SubContainer.of(
@@ -52,7 +47,9 @@ export const main = sdk.setupMain(async ({ effects }) => {
       display: i18n('Database Migration'),
       fn: async () => {
         try {
-          const res = await fetch(entryPageUrl)
+          const res = await fetch(
+            `http://uptime-kuma.startos:${uiPort}/api/entry-page`,
+          )
           if (res.ok) {
             rm(MIGRATION_MARKER, { force: true }).catch(console.error)
             return {
