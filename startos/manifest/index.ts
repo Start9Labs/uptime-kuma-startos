@@ -1,12 +1,12 @@
 import { setupManifest } from '@start9labs/start-sdk'
-import { UPTIMEKUMA_VERSION } from '../install/versions'
-import { short, long, alertUpdate } from './i18n'
+import { alertUpdate, long, short } from './i18n'
 
 export const manifest = setupManifest({
   id: 'uptime-kuma',
   title: 'Uptime Kuma',
   license: 'MIT',
-  packageRepo: 'https://github.com/Start9Labs/uptime-kuma-startos/tree/update/040',
+  packageRepo:
+    'https://github.com/Start9Labs/uptime-kuma-startos/tree/update/040',
   upstreamRepo: 'https://github.com/louislam/uptime-kuma',
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
@@ -16,7 +16,7 @@ export const manifest = setupManifest({
   images: {
     main: {
       source: {
-        dockerTag: `louislam/uptime-kuma:${UPTIMEKUMA_VERSION}`,
+        dockerTag: `louislam/uptime-kuma:2.1.3`,
       },
       arch: ['x86_64', 'aarch64'],
     },

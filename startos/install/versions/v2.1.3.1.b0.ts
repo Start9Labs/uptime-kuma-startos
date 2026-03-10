@@ -3,14 +3,14 @@ import { existsSync } from 'fs'
 import { rm, writeFile } from 'fs/promises'
 import { MIGRATION_MARKER } from '../../utils'
 
-export const v2_1_3_0_b0 = VersionInfo.of({
-  version: '2.1.3:0-beta.0',
+export const v_2_1_3_1_b0 = VersionInfo.of({
+  version: '2.1.3:1-beta.0',
   releaseNotes: {
-    en_US: 'Revamped for StartOS 0.4.0',
-    es_ES: 'Renovado para StartOS 0.4.0',
-    de_DE: 'Überarbeitet für StartOS 0.4.0',
-    pl_PL: 'Przebudowano dla StartOS 0.4.0',
-    fr_FR: 'Remanié pour StartOS 0.4.0',
+    en_US: 'Update to StartOS SDK beta.59',
+    es_ES: 'Actualización a StartOS SDK beta.59',
+    de_DE: 'Update auf StartOS SDK beta.59',
+    pl_PL: 'Aktualizacja do StartOS SDK beta.59',
+    fr_FR: 'Mise à jour vers StartOS SDK beta.59',
   },
   migrations: {
     up: async ({ effects }) => {
