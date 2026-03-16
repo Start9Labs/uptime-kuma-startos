@@ -3,14 +3,10 @@ import { existsSync } from 'fs'
 import { rm, writeFile } from 'fs/promises'
 import { MIGRATION_MARKER } from '../../utils'
 
-export const v_2_1_3_1_b0 = VersionInfo.of({
-  version: '2.1.3:1-beta.0',
+export const v_2_2_1_0_b0 = VersionInfo.of({
+  version: '2.2.1:0-beta.0',
   releaseNotes: {
-    en_US: 'Update to StartOS SDK beta.59',
-    es_ES: 'Actualización a StartOS SDK beta.59',
-    de_DE: 'Update auf StartOS SDK beta.59',
-    pl_PL: 'Aktualizacja do StartOS SDK beta.59',
-    fr_FR: 'Mise à jour vers StartOS SDK beta.59',
+    en_US: 'Update Uptime Kuma to 2.2.1',
   },
   migrations: {
     up: async ({ effects }) => {
