@@ -129,7 +129,7 @@ None. Uptime Kuma is a standalone application.
 ## Limitations and Differences
 
 1. **No environment variable configuration** — runtime settings cannot be changed via StartOS; use the web UI
-2. **Alpine-based image** — uses the Alpine variant for smaller image size
+2. **Standard image** — uses the standard (Debian-based) upstream image
 
 ---
 
