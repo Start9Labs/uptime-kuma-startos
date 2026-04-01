@@ -22,9 +22,9 @@
 - [Configuration Management](#configuration-management)
 - [Network Access and Interfaces](#network-access-and-interfaces)
 - [Actions (StartOS UI)](#actions-startos-ui)
-- [Dependencies](#dependencies)
 - [Backups and Restore](#backups-and-restore)
 - [Health Checks](#health-checks)
+- [Dependencies](#dependencies)
 - [Limitations and Differences](#limitations-and-differences)
 - [What Is Unchanged from Upstream](#what-is-unchanged-from-upstream)
 - [Contributing](#contributing)
@@ -82,26 +82,20 @@ Uptime Kuma on StartOS uses the default upstream configuration. All settings are
 |-----------|------|----------|---------|
 | Web UI | 3001 | HTTP | Uptime Kuma dashboard |
 
-**Access methods (StartOS 0.4.0):**
-
-- LAN IP with unique port
-- `<hostname>.local` with unique port
-- Tor `.onion` address
-- Custom domains (if configured)
-
 ---
 
 ## Actions (StartOS UI)
 
-### Reset Password
+### Reset Password (`reset-password`)
 
-Resets your Uptime Kuma admin password to a randomly generated value. Use this if you've been locked out of the web UI.
-
----
-
-## Dependencies
-
-None. Uptime Kuma is a standalone application.
+| Property | Value |
+|----------|-------|
+| **Name** | Reset Password |
+| **Purpose** | Reset your Uptime Kuma admin password |
+| **Visibility** | Enabled |
+| **Availability** | Any (running or stopped) |
+| **Inputs** | None |
+| **Outputs** | Randomly generated 22-character password (masked, copyable) |
 
 ---
 
@@ -123,6 +117,12 @@ None. Uptime Kuma is a standalone application.
 | Check | Display Name | Method | Messages |
 |-------|--------------|--------|----------|
 | Web UI | Web Interface | HTTP check on port 3001 | Ready / Unreachable |
+
+---
+
+## Dependencies
+
+None.
 
 ---
 
@@ -165,11 +165,7 @@ volumes:
 ports:
   ui: 3001
 dependencies: none
+startos_managed_env_vars: []
 actions:
   - reset-password
-health_checks:
-  - webui: http_check 3001
-backup_volumes:
-  - main
-startos_managed_config: none
 ```
