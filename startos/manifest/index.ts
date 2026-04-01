@@ -6,7 +6,7 @@ export const manifest = setupManifest({
   title: 'Uptime Kuma',
   license: 'MIT',
   packageRepo:
-    'https://github.com/Start9Labs/uptime-kuma-startos/tree/update/040',
+    'https://github.com/Start9Labs/uptime-kuma-startos',
   upstreamRepo: 'https://github.com/louislam/uptime-kuma',
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
