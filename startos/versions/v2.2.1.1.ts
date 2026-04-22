@@ -3,14 +3,14 @@ import { existsSync } from 'fs'
 import { rm, writeFile } from 'fs/promises'
 import { MIGRATION_MARKER } from '../utils'
 
-export const v_2_2_1_0 = VersionInfo.of({
-  version: '2.2.1:0',
+export const v_2_2_1_1 = VersionInfo.of({
+  version: '2.2.1:1',
   releaseNotes: {
-    en_US: 'Update Uptime Kuma to 2.2.1',
-    es_ES: 'Actualización de Uptime Kuma a 2.2.1',
-    de_DE: 'Update von Uptime Kuma auf 2.2.1',
-    pl_PL: 'Aktualizacja Uptime Kuma do 2.2.1',
-    fr_FR: 'Mise à jour de Uptime Kuma vers 2.2.1',
+    en_US: 'Internal updates (start-sdk 1.2.0)',
+    es_ES: 'Actualizaciones internas (start-sdk 1.2.0)',
+    de_DE: 'Interne Aktualisierungen (start-sdk 1.2.0)',
+    pl_PL: 'Aktualizacje wewnętrzne (start-sdk 1.2.0)',
+    fr_FR: 'Mises à jour internes (start-sdk 1.2.0)',
   },
   migrations: {
     up: async ({ effects }) => {
