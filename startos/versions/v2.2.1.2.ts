@@ -1,4 +1,7 @@
 import { VersionInfo, IMPOSSIBLE } from '@start9labs/start-sdk'
+import { existsSync } from 'fs'
+import { rm, writeFile } from 'fs/promises'
+import { MIGRATION_MARKER } from '../utils'
 
 export const v_2_2_1_2 = VersionInfo.of({
   version: '2.2.1:2',
@@ -10,7 +13,15 @@ export const v_2_2_1_2 = VersionInfo.of({
     fr_FR: 'Mises à jour internes (start-sdk 1.3.3)',
   },
   migrations: {
-    up: async ({ effects }) => {},
+    up: async ({ effects }) => {
+      if (existsSync('/media/startos/volumes/main/kuma.db')) {
+        await writeFile(MIGRATION_MARKER, '')
+      }
+      await rm('/media/startos/volumes/main/start9', {
+        recursive: true,
+        force: true,
+      }).catch(console.error)
+    },
     down: IMPOSSIBLE,
   },
 })
