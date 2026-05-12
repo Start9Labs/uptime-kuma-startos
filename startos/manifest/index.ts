@@ -10,7 +10,6 @@ export const manifest = setupManifest({
   upstreamRepo: 'https://github.com/louislam/uptime-kuma',
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
-  docsUrls: ['https://github.com/louislam/uptime-kuma/wiki'],
   description: { short, long },
   volumes: ['main'],
   images: {
