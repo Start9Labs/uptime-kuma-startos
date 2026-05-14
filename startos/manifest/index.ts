@@ -10,13 +10,12 @@ export const manifest = setupManifest({
   upstreamRepo: 'https://github.com/louislam/uptime-kuma',
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
-  docsUrls: ['https://github.com/louislam/uptime-kuma/wiki'],
   description: { short, long },
   volumes: ['main'],
   images: {
     main: {
       source: {
-        dockerTag: `louislam/uptime-kuma:2.2.1`,
+        dockerTag: `louislam/uptime-kuma:2.3.2`,
       },
       arch: ['x86_64', 'aarch64'],
     },
