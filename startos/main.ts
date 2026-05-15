@@ -1,13 +1,11 @@
-import { existsSync } from 'fs'
-import { rm } from 'fs/promises'
 import { i18n } from './i18n'
 import { sdk } from './sdk'
-import { MIGRATION_MARKER, uiPort } from './utils'
+import { uiPort } from './utils'
 
 export const main = sdk.setupMain(async ({ effects }) => {
   console.info('Starting Uptime Kuma')
 
-  const daemons = sdk.Daemons.of(effects).addDaemon('primary', {
+  return sdk.Daemons.of(effects).addDaemon('primary', {
     subcontainer: await sdk.SubContainer.of(
       effects,
       {
@@ -36,36 +34,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
             errorMessage: i18n('The web interface is unreachable'),
           },
         ),
-    },
-    requires: [],
-  })
-
-  if (!existsSync(MIGRATION_MARKER)) return daemons
-
-  return daemons.addHealthCheck('migration', {
-    ready: {
-      display: i18n('Database Migration'),
-      fn: async () => {
-        try {
-          const res = await fetch(
-            `http://uptime-kuma.startos:${uiPort}/api/entry-page`,
-          )
-          if (res.ok) {
-            rm(MIGRATION_MARKER, { force: true }).catch(console.error)
-            return {
-              result: 'success' as const,
-              message: i18n('Database migration complete'),
-            }
-          }
-        } catch {}
-
-        return {
-          result: 'loading' as const,
-          message: i18n(
-            'Database migration in progress. This may take a long time. Do NOT restart.',
-          ),
-        }
-      },
     },
     requires: [],
   })

@@ -1,5 +1,5 @@
 import { setupManifest } from '@start9labs/start-sdk'
-import { alertUpdate, long, short } from './i18n'
+import { long, short } from './i18n'
 
 export const manifest = setupManifest({
   id: 'uptime-kuma',
@@ -16,14 +16,14 @@ export const manifest = setupManifest({
   images: {
     main: {
       source: {
-        dockerTag: `louislam/uptime-kuma:2.2.1`,
+        dockerTag: `louislam/uptime-kuma:2.3.2`,
       },
       arch: ['x86_64', 'aarch64'],
     },
   },
   alerts: {
     install: null,
-    update: alertUpdate,
+    update: null,
     uninstall: null,
     restore: null,
     start: null,

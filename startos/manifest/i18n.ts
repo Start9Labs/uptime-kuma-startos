@@ -18,16 +18,3 @@ export const long = {
   fr_FR:
     "Uptime Kuma est un outil de surveillance auto-hébergé facile à utiliser. Il vous permet de surveiller la disponibilité de vos sites web, serveurs et applications, en fournissant des notifications en temps réel et des rapports détaillés. Avec une interface élégante et conviviale, Uptime Kuma vous garantit d'être informé de l'état de vos systèmes critiques sans effort.",
 }
-
-export const alertUpdate = {
-  en_US:
-    'WARNING: This is a major version upgrade (v1 to v2). Uptime Kuma will automatically migrate your database on first start. The migration can take a long time depending on the size of your database. Do NOT interrupt the process. Create a backup before updating.',
-  es_ES:
-    'ADVERTENCIA: Esta es una actualización de versión mayor (v1 a v2). Uptime Kuma migrará automáticamente su base de datos en el primer inicio. La migración puede tardar mucho tiempo según el tamaño de su base de datos. NO interrumpa el proceso. Cree una copia de seguridad antes de actualizar.',
-  de_DE:
-    'WARNUNG: Dies ist ein Major-Version-Upgrade (v1 auf v2). Uptime Kuma migriert Ihre Datenbank beim ersten Start automatisch. Die Migration kann je nach Datenbankgröße lange dauern. Unterbrechen Sie den Vorgang NICHT. Erstellen Sie vor dem Update ein Backup.',
-  pl_PL:
-    'OSTRZEŻENIE: To jest aktualizacja głównej wersji (v1 do v2). Uptime Kuma automatycznie zmigruje bazę danych przy pierwszym uruchomieniu. Migracja może potrwać długo w zależności od rozmiaru bazy danych. NIE przerywaj procesu. Utwórz kopię zapasową przed aktualizacją.',
-  fr_FR:
-    "ATTENTION : Il s'agit d'une mise à jour majeure (v1 vers v2). Uptime Kuma migrera automatiquement votre base de données au premier démarrage. La migration peut prendre beaucoup de temps selon la taille de votre base de données. N'interrompez PAS le processus. Créez une sauvegarde avant la mise à jour.",
-}
