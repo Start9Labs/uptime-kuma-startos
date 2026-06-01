@@ -1,4 +1,7 @@
 import { VersionInfo, IMPOSSIBLE } from '@start9labs/start-sdk'
+import { existsSync } from 'fs'
+import { rm, writeFile } from 'fs/promises'
+import { MIGRATION_MARKER } from '../utils'
 
 export const current = VersionInfo.of({
   version: '2.4.0:0',
@@ -10,7 +13,15 @@ export const current = VersionInfo.of({
     fr_FR: 'Met à jour Uptime Kuma → 2.4.0.',
   },
   migrations: {
-    up: async () => {},
+    up: async ({ effects }) => {
+      if (existsSync('/media/startos/volumes/main/kuma.db')) {
+        await writeFile(MIGRATION_MARKER, '')
+      }
+      await rm('/media/startos/volumes/main/start9', {
+        recursive: true,
+        force: true,
+      }).catch(console.error)
+    },
     down: IMPOSSIBLE,
   },
 })
