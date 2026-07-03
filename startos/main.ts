@@ -1,14 +1,34 @@
 import { existsSync } from 'fs'
 import { rm } from 'fs/promises'
 import { i18n } from './i18n'
+import { mainHostId, uiInterfaceId } from './interfaces'
 import { sdk } from './sdk'
-import { MIGRATION_MARKER, uiPort } from './utils'
+import { MIGRATION_MARKER } from './utils'
 
 export const main = sdk.setupMain(async ({ effects }) => {
   console.info('Starting Uptime Kuma')
 
+  // The service's own LXC-bridge (lxcbr0) URL for its `ui` interface, e.g.
+  // `http://10.0.3.1:54269`. Replaces the retired `uptime-kuma.startos:<port>`
+  // DNS name for in-box self-checks, so they no longer resolve through (and
+  // depend on) the Tor/DNS layer. The map fn returns just the resolved URL, so
+  // `.const()` re-runs `main` only if that URL changes (binding removed/re-added)
+  // — the health checks just close over the resolved string.
+  const uiUrl = await sdk.host
+    .getOwn(effects, mainHostId, (host) => {
+      const iface = Object.values(host?.bindings ?? {})
+        .flatMap((b) => Object.values(b.interfaces))
+        .find((i) => i.id === uiInterfaceId)
+      return iface
+        ? iface.addressInfo
+            .filter({ kind: 'bridge', predicate: (h) => !h.ssl })
+            .format('urlstring')[0]
+        : undefined
+    })
+    .const()
+
   const daemons = sdk.Daemons.of(effects).addDaemon('primary', {
-    subcontainer: await sdk.SubContainer.of(
+    subcontainer: sdk.SubContainer.of(
       effects,
       {
         imageId: 'main',
@@ -28,14 +48,15 @@ export const main = sdk.setupMain(async ({ effects }) => {
     ready: {
       display: i18n('Web Interface'),
       fn: () =>
-        sdk.healthCheck.checkWebUrl(
-          effects,
-          'http://uptime-kuma.startos:' + uiPort,
-          {
-            successMessage: i18n('The web interface is ready'),
-            errorMessage: i18n('The web interface is unreachable'),
-          },
-        ),
+        uiUrl
+          ? sdk.healthCheck.checkWebUrl(effects, uiUrl, {
+              successMessage: i18n('The web interface is ready'),
+              errorMessage: i18n('The web interface is unreachable'),
+            })
+          : Promise.resolve({
+              result: 'starting' as const,
+              message: i18n('The web interface is unreachable'),
+            }),
     },
     requires: [],
   })
@@ -47,14 +68,14 @@ export const main = sdk.setupMain(async ({ effects }) => {
       display: i18n('Database Migration'),
       fn: async () => {
         try {
-          const res = await fetch(
-            `http://uptime-kuma.startos:${uiPort}/api/entry-page`,
-          )
-          if (res.ok) {
-            rm(MIGRATION_MARKER, { force: true }).catch(console.error)
-            return {
-              result: 'success' as const,
-              message: i18n('Database migration complete'),
+          if (uiUrl) {
+            const res = await fetch(`${uiUrl}/api/entry-page`)
+            if (res.ok) {
+              rm(MIGRATION_MARKER, { force: true }).catch(console.error)
+              return {
+                result: 'success' as const,
+                message: i18n('Database migration complete'),
+              }
             }
           }
         } catch {}
