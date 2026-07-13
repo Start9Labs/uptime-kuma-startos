@@ -16,7 +16,7 @@ Uptime Kuma is shipped as a single prebuilt Docker image; there is no Git submod
   curl -fsSL "https://hub.docker.com/v2/repositories/louislam/uptime-kuma/tags?page_size=20&ordering=last_updated" | jq -r '.results[].name'
   ```
 
-  Pinned in `startos/manifest/index.ts` as `images.main.source.dockerTag` (currently `louislam/uptime-kuma:2.3.2`).
+  The current pin is `images.main.source.dockerTag` in `startos/manifest/index.ts` — read it there rather than trusting a version quoted in this file.
 
 ## Applying the bump
 
