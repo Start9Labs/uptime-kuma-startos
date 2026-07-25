@@ -34,18 +34,18 @@
 
 ## Image and Container Runtime
 
-| Property | Value |
-|----------|-------|
-| Image | `louislam/uptime-kuma` (upstream unmodified) |
-| Architectures | x86_64, aarch64 |
-| Entrypoint | Default upstream entrypoint |
+| Property      | Value                                        |
+| ------------- | -------------------------------------------- |
+| Image         | `louislam/uptime-kuma` (upstream unmodified) |
+| Architectures | x86_64, aarch64                              |
+| Entrypoint    | Default upstream entrypoint                  |
 
 ---
 
 ## Volume and Data Layout
 
-| Volume | Mount Point | Purpose |
-|--------|-------------|---------|
+| Volume | Mount Point | Purpose              |
+| ------ | ----------- | -------------------- |
 | `main` | `/app/data` | All Uptime Kuma data |
 
 The `main` volume contains the SQLite database, configuration, and all monitoring data.
@@ -54,10 +54,10 @@ The `main` volume contains the SQLite database, configuration, and all monitorin
 
 ## Installation and First-Run Flow
 
-| Step | Upstream | StartOS |
-|------|----------|---------|
-| Installation | Docker run or Docker Compose | Install from marketplace |
-| Initial setup | Create admin account in web UI | Same |
+| Step          | Upstream                       | StartOS                  |
+| ------------- | ------------------------------ | ------------------------ |
+| Installation  | Docker run or Docker Compose   | Install from marketplace |
+| Initial setup | Create admin account in web UI | Same                     |
 
 **First-run steps:**
 
@@ -78,9 +78,9 @@ Uptime Kuma on StartOS uses the default upstream configuration. All settings are
 
 ## Network Access and Interfaces
 
-| Interface | Port | Protocol | Purpose |
-|-----------|------|----------|---------|
-| Web UI | 3001 | HTTP | Uptime Kuma dashboard |
+| Interface | Port | Protocol | Purpose               |
+| --------- | ---- | -------- | --------------------- |
+| Web UI    | 3001 | HTTP     | Uptime Kuma dashboard |
 
 ---
 
@@ -88,14 +88,14 @@ Uptime Kuma on StartOS uses the default upstream configuration. All settings are
 
 ### Reset Password (`reset-password`)
 
-| Property | Value |
-|----------|-------|
-| **Name** | Reset Password |
-| **Purpose** | Reset your Uptime Kuma admin password |
-| **Visibility** | Enabled |
-| **Availability** | Any (running or stopped) |
-| **Inputs** | None |
-| **Outputs** | Randomly generated 22-character password (masked, copyable) |
+| Property         | Value                                                       |
+| ---------------- | ----------------------------------------------------------- |
+| **Name**         | Reset Password                                              |
+| **Purpose**      | Reset your Uptime Kuma admin password                       |
+| **Visibility**   | Enabled                                                     |
+| **Availability** | Any (running or stopped)                                    |
+| **Inputs**       | None                                                        |
+| **Outputs**      | Randomly generated 22-character password (masked, copyable) |
 
 ---
 
@@ -114,8 +114,8 @@ Uptime Kuma on StartOS uses the default upstream configuration. All settings are
 
 ## Health Checks
 
-| Check | Display Name | Method | Messages |
-|-------|--------------|--------|----------|
+| Check  | Display Name  | Method                  | Messages            |
+| ------ | ------------- | ----------------------- | ------------------- |
 | Web UI | Web Interface | HTTP check on port 3001 | Ready / Unreachable |
 
 ---
@@ -150,7 +150,7 @@ None.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for build instructions and development workflow.
+Build and development workflow follow the StartOS packaging guide: <https://docs.start9.com/packaging>. Keep `README.md`, `instructions.md`, and `AGENTS.md` in sync with any change to user-visible behavior or package structure.
 
 ---
 
