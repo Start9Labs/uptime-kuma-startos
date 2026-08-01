@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { rm } from 'fs/promises'
+import { rm, writeFile } from 'fs/promises'
 import { i18n } from './i18n'
 import { mainHostId, uiInterfaceId } from './interfaces'
 import { sdk } from './sdk'
@@ -21,11 +21,20 @@ export const main = sdk.setupMain(async ({ effects }) => {
         .find((i) => i.id === uiInterfaceId)
       return iface
         ? iface.addressInfo
-            .filter({ kind: 'bridge', predicate: (h) => !h.ssl })
-            .format('urlstring')[0]
+          .filter({ kind: 'bridge', predicate: (h) => !h.ssl })
+          .format('urlstring')[0]
         : undefined
     })
     .const()
+
+  // The StartOS root CA, extracted from a generated fullchain
+  // ([leaf, intermediate, root]). Subcontainers can't bind-mount host paths,
+  // so the PEM is written into the `main` volume (mounted at /app/data) for
+  // NODE_EXTRA_CA_CERTS. `.const()` re-runs main if the CA rotates.
+  const [, , rootCa] = await sdk
+    .getSslCertificate(effects, ['127.0.0.1'])
+    .const()
+  await writeFile('/media/startos/volumes/main/startos-root-ca.crt', rootCa)
 
   const daemons = sdk.Daemons.of(effects).addDaemon('primary', {
     subcontainer: sdk.SubContainer.of(
@@ -43,6 +52,9 @@ export const main = sdk.setupMain(async ({ effects }) => {
     ),
     exec: {
       command: sdk.useEntrypoint(),
+      env: {
+        NODE_EXTRA_CA_CERTS: '/app/data/startos-root-ca.crt',
+      },
       cwd: '/app',
     },
     ready: {
@@ -50,13 +62,13 @@ export const main = sdk.setupMain(async ({ effects }) => {
       fn: () =>
         uiUrl
           ? sdk.healthCheck.checkWebUrl(effects, uiUrl, {
-              successMessage: i18n('The web interface is ready'),
-              errorMessage: i18n('The web interface is unreachable'),
-            })
+            successMessage: i18n('The web interface is ready'),
+            errorMessage: i18n('The web interface is unreachable'),
+          })
           : Promise.resolve({
-              result: 'starting' as const,
-              message: i18n('The web interface is unreachable'),
-            }),
+            result: 'starting' as const,
+            message: i18n('The web interface is unreachable'),
+          }),
     },
     requires: [],
   })
@@ -78,7 +90,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
               }
             }
           }
-        } catch {}
+        } catch { }
 
         return {
           result: 'loading' as const,
