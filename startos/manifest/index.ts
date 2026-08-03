@@ -5,8 +5,7 @@ export const manifest = setupManifest({
   id: 'uptime-kuma',
   title: 'Uptime Kuma',
   license: 'MIT',
-  packageRepo:
-    'https://github.com/Start9Labs/uptime-kuma-startos',
+  packageRepo: 'https://github.com/Start9Labs/uptime-kuma-startos',
   upstreamRepo: 'https://github.com/louislam/uptime-kuma',
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
@@ -15,7 +14,7 @@ export const manifest = setupManifest({
   images: {
     main: {
       source: {
-        dockerTag: `louislam/uptime-kuma:2.4.0`,
+        dockerTag: `louislam/uptime-kuma:2.5.0`,
       },
       arch: ['x86_64', 'aarch64'],
     },
