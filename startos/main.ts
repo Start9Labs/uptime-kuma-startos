@@ -21,8 +21,8 @@ export const main = sdk.setupMain(async ({ effects }) => {
         .find((i) => i.id === uiInterfaceId)
       return iface
         ? iface.addressInfo
-          .filter({ kind: 'bridge', predicate: (h) => !h.ssl })
-          .format('urlstring')[0]
+            .filter({ kind: 'bridge', predicate: (h) => !h.ssl })
+            .format('urlstring')[0]
         : undefined
     })
     .const()
@@ -62,13 +62,13 @@ export const main = sdk.setupMain(async ({ effects }) => {
       fn: () =>
         uiUrl
           ? sdk.healthCheck.checkWebUrl(effects, uiUrl, {
-            successMessage: i18n('The web interface is ready'),
-            errorMessage: i18n('The web interface is unreachable'),
-          })
+              successMessage: i18n('The web interface is ready'),
+              errorMessage: i18n('The web interface is unreachable'),
+            })
           : Promise.resolve({
-            result: 'starting' as const,
-            message: i18n('The web interface is unreachable'),
-          }),
+              result: 'starting' as const,
+              message: i18n('The web interface is unreachable'),
+            }),
     },
     requires: [],
   })
@@ -90,7 +90,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
               }
             }
           }
-        } catch { }
+        } catch {}
 
         return {
           result: 'loading' as const,
