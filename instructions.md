@@ -11,9 +11,10 @@
 
 ## Getting set up
 
-1. Open the **Web UI** interface.
-2. Create your admin account on the first-time setup screen.
-3. Start adding monitors from the dashboard.
+1. Start Uptime Kuma from its service page.
+2. Open the **Web UI** interface.
+3. Create your admin account on the first-time setup screen.
+4. Start adding monitors from the dashboard.
 
 > If you are restoring a backup from a v1 release, the service will automatically migrate the database on first start. The migration can take a long time depending on database size — do not restart the service while it's running.
 
