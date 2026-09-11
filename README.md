@@ -92,7 +92,7 @@ The port is bound on the `main` MultiHost and is not masked.
 
 ## Installation and First-Run Flow
 
-Nothing to configure and nothing to reveal. Install seeds `db-config.json` and starts the service; **the first account is created in the web UI**, by you, on the setup screen Uptime Kuma shows at its first visit. There is no task and no generated credential.
+Nothing to configure and nothing to reveal. Installation seeds `db-config.json`. Start the service, then create the first account in the web UI on the setup screen Uptime Kuma shows at its first visit. There is no task and no generated credential.
 
 Do that promptly. Until the setup screen has been completed, anyone who can reach a published address can complete it and become the administrator.
 
