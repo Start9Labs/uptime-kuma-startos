@@ -16,7 +16,7 @@
 3. Create your admin account on the first-time setup screen.
 4. Start adding monitors from the dashboard.
 
-> If you are restoring a backup from a v1 release, the service will automatically migrate the database on first start. The migration can take a long time depending on database size — do not restart the service while it's running.
+> If you are updating from a v1 release or restoring a backup of one, the service will automatically migrate the database on first start. The migration can take a long time depending on database size — do not restart the service while it's running. An update from v1 asks you to confirm this before it downloads.
 
 ## Using Uptime Kuma
 
@@ -26,4 +26,4 @@ The Web UI is where you add and manage monitors (HTTP, TCP, Ping, DNS, Docker, c
 
 ### Actions
 
-- **Reset Password** — generates a new random admin password and shows it once. Use it if you've lost access to your admin account; copy the password before dismissing the dialog.
+- **Reset Password** — generates a new random admin password and shows it once. Use it if you've lost access to your admin account; copy the password before dismissing the dialog. It asks for confirmation first: your current password stops working, and anyone logged in is signed out.

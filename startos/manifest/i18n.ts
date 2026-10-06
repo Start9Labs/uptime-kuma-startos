@@ -18,3 +18,16 @@ export const long = {
   fr_FR:
     "Uptime Kuma est un outil de surveillance auto-hébergé facile à utiliser. Il vous permet de surveiller la disponibilité de vos sites web, serveurs et applications, en fournissant des notifications en temps réel et des rapports détaillés. Avec une interface élégante et conviviale, Uptime Kuma vous garantit d'être informé de l'état de vos systèmes critiques sans effort.",
 }
+
+export const migrationAlert = {
+  en_US:
+    '**Updating from Uptime Kuma 1.x converts its database to the 2.x format.** The conversion runs on the first start after the update and can take a long time on a database with a lot of history. Do not stop or restart Uptime Kuma until the Database Migration health check reports that the migration is complete. The conversion cannot be undone.',
+  es_ES:
+    '**Actualizar desde Uptime Kuma 1.x convierte su base de datos al formato 2.x.** La conversión se ejecuta en el primer inicio tras la actualización y puede tardar mucho en una base de datos con mucho historial. No detenga ni reinicie Uptime Kuma hasta que la comprobación de estado «Migración de base de datos» indique que la migración ha finalizado. La conversión no se puede deshacer.',
+  de_DE:
+    '**Ein Update von Uptime Kuma 1.x wandelt die Datenbank in das 2.x-Format um.** Die Umwandlung läuft beim ersten Start nach dem Update und kann bei einer Datenbank mit viel Verlauf lange dauern. Stoppen Sie Uptime Kuma nicht und starten Sie es nicht neu, bis die Statusprüfung „Datenbankmigration“ meldet, dass die Migration abgeschlossen ist. Die Umwandlung lässt sich nicht rückgängig machen.',
+  pl_PL:
+    '**Aktualizacja z Uptime Kuma 1.x konwertuje bazę danych do formatu 2.x.** Konwersja odbywa się przy pierwszym uruchomieniu po aktualizacji i przy bazie z długą historią może trwać długo. Nie zatrzymuj ani nie uruchamiaj ponownie Uptime Kuma, dopóki kontrola stanu „Migracja bazy danych” nie zgłosi zakończenia migracji. Konwersji nie można cofnąć.',
+  fr_FR:
+    "**La mise à jour depuis Uptime Kuma 1.x convertit sa base de données au format 2.x.** La conversion s'exécute au premier démarrage après la mise à jour et peut être longue sur une base de données avec beaucoup d'historique. N'arrêtez pas et ne redémarrez pas Uptime Kuma tant que le contrôle d'état « Migration de la base de données » n'indique pas que la migration est terminée. La conversion est irréversible.",
+}

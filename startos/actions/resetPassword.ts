@@ -8,7 +8,9 @@ export const resetPassword = sdk.Action.withoutInput(
   async ({ effects }) => ({
     name: i18n('Reset Password'),
     description: i18n('Reset your Uptime Kuma admin password'),
-    warning: null,
+    warning: i18n(
+      'Replaces the admin password. The current password stops working and the new one is shown only once.',
+    ),
     allowedStatuses: 'any',
     group: null,
     visibility: 'enabled',
@@ -20,7 +22,7 @@ export const resetPassword = sdk.Action.withoutInput(
       len: 22,
     })
 
-    await sdk.SubContainer.withTemp(
+    const { stdout, stderr } = await sdk.SubContainer.withTemp(
       effects,
       { imageId: 'main' },
       sdk.Mounts.of().mountVolume({
@@ -30,13 +32,19 @@ export const resetPassword = sdk.Action.withoutInput(
         readonly: false,
       }),
       'reset-password',
-      async (sub) => {
-        await sub.execFail(
-          ['node', 'extra/reset-password.js', `--new_password=${password}`],
+      (sub) =>
+        sub.execFail(
+          ['node', 'extra/reset-password.js', `--new-password=${password}`],
           { cwd: '/app' },
-        )
-      },
+        ),
     )
+
+    // Upstream's script catches its own errors and exits 0.
+    if (!stdout.toString().includes('Password reset successfully.')) {
+      throw new Error(
+        `${i18n('The password was not reset. Output of the reset script:')}\n\n${`${stdout.toString()}\n${stderr.toString()}`.replace(/\x1b\[[0-9;]*m/g, '').trim()}`,
+      )
+    }
 
     return {
       version: '1',

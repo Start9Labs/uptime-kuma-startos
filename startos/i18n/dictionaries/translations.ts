@@ -14,6 +14,8 @@ export default {
     11: 'Restablecer la contraseña de administrador de Uptime Kuma',
     12: 'Contraseña restablecida',
     13: 'Su contraseña ha sido restablecida. Use la nueva contraseña a continuación para iniciar sesión.',
+    14: 'Reemplaza la contraseña de administrador. La contraseña actual deja de funcionar y la nueva se muestra una sola vez.',
+    15: 'La contraseña no se ha restablecido. Salida del script de restablecimiento:',
 
     // interfaces.ts
     100: 'Interfaz web',
@@ -32,6 +34,8 @@ export default {
     11: 'Setzen Sie Ihr Uptime Kuma Admin-Passwort zurück',
     12: 'Passwort zurückgesetzt',
     13: 'Ihr Passwort wurde zurückgesetzt. Verwenden Sie das neue Passwort unten, um sich anzumelden.',
+    14: 'Ersetzt das Admin-Passwort. Das aktuelle Passwort funktioniert nicht mehr, und das neue wird nur einmal angezeigt.',
+    15: 'Das Passwort wurde nicht zurückgesetzt. Ausgabe des Rücksetzskripts:',
 
     // interfaces.ts
     100: 'Weboberfläche',
@@ -50,6 +54,8 @@ export default {
     11: 'Resetuj hasło administratora Uptime Kuma',
     12: 'Hasło zresetowane',
     13: 'Twoje hasło zostało zresetowane. Użyj nowego hasła poniżej, aby się zalogować.',
+    14: 'Zastępuje hasło administratora. Obecne hasło przestaje działać, a nowe jest wyświetlane tylko raz.',
+    15: 'Hasło nie zostało zresetowane. Wynik skryptu resetowania:',
 
     // interfaces.ts
     100: 'Interfejs webowy',
@@ -68,6 +74,8 @@ export default {
     11: "Réinitialiser le mot de passe administrateur d'Uptime Kuma",
     12: 'Mot de passe réinitialisé',
     13: 'Votre mot de passe a été réinitialisé. Utilisez le nouveau mot de passe ci-dessous pour vous connecter.',
+    14: "Remplace le mot de passe administrateur. Le mot de passe actuel cesse de fonctionner et le nouveau n'est affiché qu'une seule fois.",
+    15: "Le mot de passe n'a pas été réinitialisé. Sortie du script de réinitialisation :",
 
     // interfaces.ts
     100: 'Interface web',

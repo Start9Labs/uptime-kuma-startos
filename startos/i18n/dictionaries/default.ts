@@ -13,6 +13,8 @@ const dict = {
   'Reset your Uptime Kuma admin password': 11,
   'Password Reset': 12,
   'Your password has been reset. Use the new password below to log in.': 13,
+  'Replaces the admin password. The current password stops working and the new one is shown only once.': 14,
+  'The password was not reset. Output of the reset script:': 15,
 
   // interfaces.ts
   'Web UI': 100,
