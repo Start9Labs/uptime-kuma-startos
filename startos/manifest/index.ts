@@ -1,5 +1,5 @@
 import { setupManifest } from '@start9labs/start-sdk'
-import { long, short } from './i18n'
+import { long, migrationAlert, short } from './i18n'
 
 export const manifest = setupManifest({
   id: 'uptime-kuma',
@@ -10,6 +10,10 @@ export const manifest = setupManifest({
   marketingUrl: 'https://github.com/louislam/uptime-kuma',
   donationUrl: 'https://opencollective.com/uptime-kuma',
   description: { short, long },
+  preDownloadAlert: {
+    message: migrationAlert,
+    when: { sourceVersion: '<2.0.0:0' },
+  },
   volumes: ['main'],
   images: {
     main: {
@@ -19,5 +23,4 @@ export const manifest = setupManifest({
       arch: ['x86_64', 'aarch64'],
     },
   },
-  dependencies: {},
 })

@@ -18,15 +18,22 @@ Freshly scaffolded? Work the
 guide page, not a file in this repo — read it, don't copy it in.
 
 Keep `README.md` (technical reference for an AI support or administering agent) and
-`instructions.md` (end-user docs) in sync with your changes.
+`instructions.md` (end-user docs) in sync with your changes. This file restates neither:
+whoever changes the package has both, so it carries only what they don't — repo mechanics,
+a change that looks right and is not, where the next thing gets added, a naming trap, a
+build or test invocation particular to this repo.
 
-**Bugs and feature requests are GitHub issues on this repo** — file them as you find them.
+**Fix a defect you spot rather than reporting it** — you have the package open and the
+context to be sure. File **a GitHub issue on this repo** only when the call isn't yours to
+make: you can't pin the cause down, two defensible fixes exist, or it's too large to ride on
+the work in hand. An open issue is a report, not a queue — implement one when you're asked
+to or when it's labelled `Approved`, then close it with `Closes #<n>`.
+
 Don't record work in the repo instead: no `TODO.md`, no `NOTES.md`, no `PLAN.md`. What you
 verified, tried, and decided belongs in the commit message and the PR body.
 
 ## This repo
 
-- **`NODE_EXTRA_CA_CERTS` is what makes monitoring other StartOS services work.** Their HTTPS addresses carry certificates from the StartOS CA, which Node does not trust; without the root written into the volume every such monitor fails on certificate validation rather than reporting the service's real state. The certificate is the **third** element of the generated fullchain (leaf, intermediate, root) — a subcontainer cannot bind-mount the host copy, so it has to be written into `main`.
-- **The self-check dials the service's own bridge address**, resolved from its host, not the retired `uptime-kuma.startos` name — so it no longer depends on the DNS or Tor layer. The map fn returns only the URL string, so `main` rebuilds when the binding changes and not on unrelated address churn.
-- **`.migrating-v2` is written by the `2.4.0:1` migration and cleared by the health check, not by the migration.** Only the running app can tell when the v1→v2 database conversion finished, and interrupting it corrupts the database — which is why the check reports `loading` with an explicit do-not-restart rather than failing.
-- **`db-config.json` pins SQLite to skip Uptime Kuma's database question in its first-run wizard.** Removing it reopens the MariaDB path, which nothing here provisions.
+- **Keep writing the root CA into `main` for `NODE_EXTRA_CA_CERTS`.** A subcontainer cannot bind-mount the host copy, and the root is the third element of the generated fullchain, not the first.
+- **Clear `.migrating-v2` from the migration health check, never from the `2.4.0:1` migration.** Only the running app can tell the v1→v2 database conversion has finished, and a restart mid-conversion corrupts the database.
+- **Keep `db-config.json` pinned to `sqlite`.** Without it the first-run wizard offers MariaDB, which nothing here provisions.

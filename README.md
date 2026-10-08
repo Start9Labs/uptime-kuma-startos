@@ -106,10 +106,11 @@ One action.
 
 Generates a new password for the Uptime Kuma admin account. Run it when locked out.
 
-- **What it changes:** the account's password, written by upstream's own `reset-password` script running against the database in a temporary container.
+- **What it changes:** the account's password, written by upstream's own `reset-password` script (`--new-password`) running against the database in a temporary container. The script also rotates the session secret, so every logged-in browser is signed out.
 - **Cost:** seconds. No restart, and no need for the service to be running.
-- **Repeat safety:** safe to re-run; each run generates a fresh password.
+- **Repeat safety:** safe to re-run; each run generates a fresh password. It asks for confirmation first, since the current password stops working.
 - **Outputs:** the new password, masked and copyable. It is not recoverable afterwards.
+- **Failure:** upstream's script exits 0 even when it fails (no account yet, a weak password), so the action checks its output for `Password reset successfully.` and otherwise fails with the script's output instead of showing a password.
 - **It resets _the_ admin**, not a chosen one — upstream's script targets the single admin account, so this is recovery rather than user management.
 
 ## Tasks
@@ -127,7 +128,7 @@ One check always, and a second that appears only during a database migration.
 
 The web check reaches the service over the LXC bridge — its own address on the internal network — rather than through a name, so it does not depend on DNS or the Tor layer. Before that address resolves it reports `starting` rather than failing, so a service still being wired up does not look broken.
 
-**The migration check is the one to pay attention to.** An install carrying a version-1 database is marked at update time, and Uptime Kuma then converts it on its first start. That conversion can take a long time on a database with a lot of history, and the check reports `loading` with an explicit **do not restart** the whole time — restarting mid-conversion is what corrupts it. The check clears itself, and disappears for good, the moment the app answers.
+**The migration check is the one to pay attention to.** An install carrying a version-1 database is marked at update time, and Uptime Kuma then converts it on its first start. Before such an update downloads, the manifest's `preDownloadAlert` (installed version `<2.0.0:0`) asks the user to confirm and repeats the do-not-restart warning. That conversion can take a long time on a database with a lot of history, and the check reports `loading` with an explicit **do not restart** the whole time — restarting mid-conversion is what corrupts it. The check clears itself, and disappears for good, the moment the app answers.
 
 A `primary` failure outside a migration is the app itself, and the service logs name the cause.
 
