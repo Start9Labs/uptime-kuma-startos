@@ -35,7 +35,7 @@
 
 ## Image and Container Runtime
 
-One upstream image, built through the root `Dockerfile`, which upgrades its CA store and sets `NODE_OPTIONS=--use-openssl-ca` so Node verifies against that store. The layer is temporary and comes out once upstream ships an image built on a fixed store.
+One prebuilt upstream image, used without a custom Docker layer.
 
 | Property      | Value                       |
 | ------------- | --------------------------- |
