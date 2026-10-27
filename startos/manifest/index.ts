@@ -17,7 +17,7 @@ export const manifest = setupManifest({
   volumes: ['main'],
   images: {
     main: {
-      source: { dockerTag: 'louislam/uptime-kuma:2.5.7' },
+      source: { dockerTag: 'louislam/uptime-kuma:2.5.8' },
       arch: ['x86_64', 'aarch64'],
     },
   },
